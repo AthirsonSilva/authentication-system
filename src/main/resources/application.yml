@@ -18,3 +18,12 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  show-actuator: true
+  api-docs:
+    enabled: true
+    path: /api-docs
