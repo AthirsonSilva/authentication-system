@@ -8,6 +8,7 @@ import com.authenticationsystem.utils.EmailValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -46,5 +47,23 @@ public class RegistrationService {
         tokenService.save(token);
 
         return token.toString();
+    }
+
+    @Transactional
+    public String confirmToken(String token) {
+        ConfirmationToken confirmationToken = tokenService.getToken(token);
+
+        if (confirmationToken.getConfirmedAt() != null)
+            throw new IllegalStateException("This account was already confirmed.");
+
+        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+
+        if (expiredAt.isBefore(LocalDateTime.now()))
+            throw new IllegalStateException("This token expired!");
+
+        tokenService.setConfirmedAt(token);
+        appUserService.enableAppUser(confirmationToken.getAppUser().getEmail());
+
+        return "Token confirmed!";
     }
 }

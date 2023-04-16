@@ -18,4 +18,10 @@ public class RegistrationController {
     public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.register(request));
     }
+
+    @GetMapping("confirm")
+    @ResponseBody
+    public ResponseEntity<?> confirm(@RequestParam("token") String token) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.confirmToken(token));
+    }
 }

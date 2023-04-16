@@ -20,14 +20,16 @@ public class AppUserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username)));
     }
 
-    public String signUpUser(AppUser appUser) {
+    public void signUpUser(AppUser appUser) {
         boolean userExists = repository.findByEmail(appUser.getUsername()).isPresent();
 
         if (userExists)
             throw new IllegalStateException("Username already taken");
 
         repository.save(appUser);
+    }
 
-        return "User registered successfully";
+    public int enableAppUser(String email) {
+        return repository.enableAppUser(email);
     }
 }
