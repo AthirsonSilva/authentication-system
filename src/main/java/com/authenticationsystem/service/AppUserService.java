@@ -1,5 +1,6 @@
 package com.authenticationsystem.service;
 
+import com.authenticationsystem.app.AppUser;
 import com.authenticationsystem.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,18 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username)
+        return repository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username)));
+    }
+
+    public String signUpUser(AppUser appUser) {
+        boolean userExists = repository.findByEmail(appUser.getUsername()).isPresent();
+
+        if (userExists)
+            throw new IllegalStateException("Username already taken");
+
+        repository.save(appUser);
+
+        return "User registered successfully";
     }
 }

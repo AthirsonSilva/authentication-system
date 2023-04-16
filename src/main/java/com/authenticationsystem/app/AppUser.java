@@ -19,8 +19,8 @@ public class AppUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     private Long id;
-    private String name;
-    private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -35,20 +35,23 @@ public class AppUser implements UserDetails {
         return Collections.singletonList(authority);
     }
 
-    public AppUser(String name,
-                   String username,
+    @Override
+    public String getUsername() {
+        return String.format("%s %s", firstName, lastName);
+    }
+
+    public AppUser(String firstName,
+                   String lastName,
                    String email,
                    String password,
-                   UserRole userRole,
-                   Boolean locked,
-                   Boolean enabled) {
-        this.name = name;
-        this.username = username;
+                   UserRole userRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.userRole = userRole;
-        this.locked = locked;
-        this.enabled = enabled;
+        this.locked = false;
+        this.enabled = false;
     }
 
     @Override
@@ -56,9 +59,8 @@ public class AppUser implements UserDetails {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return username;
+    public String getLastName() {
+        return lastName;
     }
 
     @Override

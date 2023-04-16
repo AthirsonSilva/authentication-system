@@ -2,7 +2,7 @@ package com.authenticationsystem.app.payload;
 
 public record RegistrationRequest(
         String firstName,
-        String lastname,
+        String lastName,
         String email,
         String password
 ) {
