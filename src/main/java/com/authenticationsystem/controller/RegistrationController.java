@@ -1,6 +1,6 @@
 package com.authenticationsystem.controller;
 
-import com.authenticationsystem.app.payload.RegistrationRequest;
+import com.authenticationsystem.entity.payload.RegistrationRequest;
 import com.authenticationsystem.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

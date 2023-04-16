@@ -1,6 +1,6 @@
 package com.authenticationsystem.service;
 
-import com.authenticationsystem.app.AppUser;
+import com.authenticationsystem.entity.AppUser;
 import com.authenticationsystem.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

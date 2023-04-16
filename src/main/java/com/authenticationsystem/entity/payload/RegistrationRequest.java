@@ -1,4 +1,4 @@
-package com.authenticationsystem.app.payload;
+package com.authenticationsystem.entity.payload;
 
 public record RegistrationRequest(
         String firstName,

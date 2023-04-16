@@ -1,4 +1,4 @@
-package com.authenticationsystem.app;
+package com.authenticationsystem.entity;
 
 public enum UserRole {
     ADMIN,

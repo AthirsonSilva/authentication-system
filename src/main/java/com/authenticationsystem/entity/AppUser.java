@@ -1,32 +1,54 @@
-package com.authenticationsystem.app;
+package com.authenticationsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
 public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     private Long id;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @Column(nullable = false)
     private Boolean locked;
+
+    @Column(nullable = false)
     private Boolean enabled;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -40,11 +62,13 @@ public class AppUser implements UserDetails {
         return String.format("%s %s", firstName, lastName);
     }
 
-    public AppUser(String firstName,
-                   String lastName,
-                   String email,
-                   String password,
-                   UserRole userRole) {
+    public AppUser(
+            String firstName,
+            String lastName,
+            String email,
+            String password,
+            UserRole userRole
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -59,9 +83,6 @@ public class AppUser implements UserDetails {
         return password;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
