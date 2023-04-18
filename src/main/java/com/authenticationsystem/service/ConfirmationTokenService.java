@@ -21,7 +21,7 @@ public class ConfirmationTokenService {
                 .orElseThrow(() -> new IllegalStateException("Token not found"));
     }
 
-    public int setConfirmedAt(String token) {
-        return repository.updateConfirmedAt(token, LocalDateTime.now());
+    public void setConfirmedAt(String token) {
+        repository.updateConfirmedAt(token, LocalDateTime.now());
     }
 }

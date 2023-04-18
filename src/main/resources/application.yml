@@ -3,7 +3,7 @@ server:
     include-message: always
     include-binding-errors: always
 
-  port: 8080
+  port: 8081
 
 spring:
   datasource:
@@ -19,6 +19,24 @@ spring:
         format_sql: true
         show_sql: true
 
+  mail:
+    host: smtp.gmail.com
+    username: ${EMAIL_ADDRESS}
+    password: ${EMAIL_PASSWORD}
+    port: 587
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+    protocol: smtp
+    default-encoding: utf-8
+    test-connection: true
+    jndi-name: mail/Session
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -27,3 +45,4 @@ springdoc:
   api-docs:
     enabled: true
     path: /api-docs
+
