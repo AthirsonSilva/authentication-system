@@ -3,7 +3,7 @@ A simple login and authentication system to learn more about Spring Security and
 
 ## Requirements
 
-- [Java 8](https://adoptium.net/)
+- [Java 17](https://adoptium.net/)
 - [Maven](https://maven.apache.org/)
 - [Gradle](https://gradle.org/)
 
